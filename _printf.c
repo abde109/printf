@@ -1,5 +1,4 @@
-#include <stdarg.h>
-#include <stdio.h>
+#include "main.h"
 
 int _printf(const char *format, ...) {
     va_list args;
@@ -38,8 +37,13 @@ int _printf(const char *format, ...) {
                 count++;
                 break;
             }
+            case 'd': {
+                int d = va_arg(args, int);
+                int num_chars = printf("%d", d);
+                count += num_chars;
+                break;
+            }
             default: {
-                // If an unsupported specifier is encountered, print it as-is.
                 putchar('%');
                 putchar(*p);
                 count += 2;
@@ -50,11 +54,5 @@ int _printf(const char *format, ...) {
 
     va_end(args);
     return count;
-}
-
-int main() {
-    _printf("Hello, %s! I have %c%c%c%c %d%% of my tasks done today.\n", "John", 'C', 'o', 'd', 'e', 75);
-
-    return 0;
 }
 
