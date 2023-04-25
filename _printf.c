@@ -21,42 +21,13 @@ int _printf(const char *format, ...)
 
         switch (*p)
         {
-            case 'c':
+            // ... (previous cases here)
+
+            case 'b':
             {
-                int c = va_arg(args, int);
-                putchar(c);
-                count++;
-                break;
-            }
-            case 's':
-            {
-                const char *s = va_arg(args, const char *);
-                while (*s)
-                {
-                    putchar(*s);
-                    count++;
-                    s++;
-                }
-                break;
-            }
-            case '%':
-            {
-                putchar('%');
-                count++;
-                break;
-            }
-            case 'd':
-            case 'i':
-            {
-                int d = va_arg(args, int);
-                if (d < 0)
-                {
-                    putchar('-');
-                    d = -d;
-                    count++;
-                }
-                print_number(d);
-                count += snprintf(NULL, 0, "%d", d);
+                unsigned int b = va_arg(args, unsigned int);
+                print_binary(b);
+                count += snprintf(NULL, 0, "%b", b);
                 break;
             }
             default:
@@ -73,7 +44,9 @@ int _printf(const char *format, ...)
     return count;
 }
 
-void print_number(int num)
+// ... (print_number function here)
+
+void print_binary(unsigned int num)
 {
     if (num == 0)
     {
@@ -81,9 +54,9 @@ void print_number(int num)
         return;
     }
 
-    if (num / 10)
-        print_number(num / 10);
+    if (num / 2)
+        print_binary(num / 2);
 
-    putchar((num % 10) + '0');
+    putchar((num % 2) + '0');
 }
 
