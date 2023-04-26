@@ -21,13 +21,11 @@ int _printf(const char *format, ...)
 
         switch (*p)
         {
-            // ... (previous cases here)
-
             case 'b':
             {
                 unsigned int b = va_arg(args, unsigned int);
                 print_binary(b);
-                count += snprintf(NULL, 0, "%b", b);
+                count += count_binary_digits(b);
                 break;
             }
             default:
@@ -44,7 +42,6 @@ int _printf(const char *format, ...)
     return count;
 }
 
-// ... (print_number function here)
 
 void print_binary(unsigned int num)
 {
@@ -58,5 +55,19 @@ void print_binary(unsigned int num)
         print_binary(num / 2);
 
     putchar((num % 2) + '0');
+}
+
+int count_binary_digits(unsigned int num)
+{
+    int count = 0;
+    if (num == 0)
+        return 1;
+
+    while (num != 0)
+    {
+        num /= 2;
+        count++;
+    }
+    return count;
 }
 
