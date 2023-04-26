@@ -1,12 +1,5 @@
 #include "main.h"
 
-void print_unsigned(unsigned int u);
-void print_octal(unsigned int o);
-void print_hex(unsigned int x, int uppercase);
-int count_digits(unsigned int num);
-int count_octal_digits(unsigned int num);
-int count_hex_digits(unsigned int num);
-
 int _printf(const char *format, ...)
 {
     va_list args;

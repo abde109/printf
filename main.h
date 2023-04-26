@@ -12,6 +12,7 @@ void print_unsigned(unsigned int num);
 void print_octal(unsigned int num);
 void print_hex(unsigned int num, int uppercase);
 int count_digits(unsigned int num);
-
+int count_octal_digits(unsigned int num);
+int count_hex_digits(unsigned int num);
 #endif /* MAIN_H */
 
