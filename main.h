@@ -6,6 +6,7 @@
 
 int _printf(const char *format, ...);
 void print_number(int num);
+void print_binary(unsigned int num);
 
 #endif /* MAIN_H */
 
