@@ -2,11 +2,13 @@
 #define MAIN_H
 
 #include <stdarg.h>
-#include <stdio.h>
+#include <stddef.h>
+#include <unistd.h>
 
 int _printf(const char *format, ...);
-void print_number(int num);
-void print_binary(unsigned int num);
+int print_char(va_list args);
+int print_string(va_list args);
+int print_percent(va_list args);
 
 #endif /* MAIN_H */
 
