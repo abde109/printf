@@ -1,7 +1,4 @@
 #include "main.h"
-#include <stdarg.h>
-#include <unistd.h>
-#include <stdio.h>
 
 int _printf(const char *format, ...)
 {
@@ -24,32 +21,11 @@ int _printf(const char *format, ...)
 
         switch (*p)
         {
-            case 'u':
+            case 'b':
             {
-                unsigned int u = va_arg(args, unsigned int);
-                print_unsigned(u);
-                count += count_digits(u);
-                break;
-            }
-            case 'o':
-            {
-                unsigned int o = va_arg(args, unsigned int);
-                print_octal(o);
-                count += count_digits(o);
-                break;
-            }
-            case 'x':
-            {
-                unsigned int x = va_arg(args, unsigned int);
-                print_hex(x, 0);
-                count += count_digits(x);
-                break;
-            }
-            case 'X':
-            {
-                unsigned int x = va_arg(args, unsigned int);
-                print_hex(x, 1);
-                count += count_digits(x);
+                unsigned int b = va_arg(args, unsigned int);
+                print_binary(b);
+                count += count_binary_digits(b);
                 break;
             }
             default:
@@ -66,36 +42,31 @@ int _printf(const char *format, ...)
     return count;
 }
 
-void print_unsigned(unsigned int u)
+
+void print_binary(unsigned int num)
 {
-    if (u / 10 != 0)
-        print_unsigned(u / 10);
-    putchar('0' + (u % 10));
+    if (num == 0)
+    {
+        putchar('0');
+        return;
+    }
+
+    if (num / 2)
+        print_binary(num / 2);
+
+    putchar((num % 2) + '0');
 }
 
-void print_octal(unsigned int o)
-{
-    if (o / 8 != 0)
-        print_octal(o / 8);
-    putchar('0' + (o % 8));
-}
-
-void print_hex(unsigned int x, int uppercase)
-{
-    char c;
-    if (x / 16 != 0)
-        print_hex(x / 16, uppercase);
-    c = (x % 16) + (x % 16 < 10 ? '0' : (uppercase ? 'A' : 'a') - 10);
-    putchar(c);
-}
-
-int count_digits(unsigned int num)
+int count_binary_digits(unsigned int num)
 {
     int count = 0;
-    while (num > 0)
+    if (num == 0)
+        return 1;
+
+    while (num != 0)
     {
+        num /= 2;
         count++;
-        num /= 10;
     }
     return count;
 }
