@@ -1,4 +1,7 @@
 #include "main.h"
+#include <stdarg.h>
+#include <unistd.h>
+#include <stdio.h>
 
 int _printf(const char *format, ...)
 {
@@ -20,8 +23,7 @@ int _printf(const char *format, ...)
         p++;
 
         switch (*p)
-	{
-
+        {
             case 'u':
             {
                 unsigned int u = va_arg(args, unsigned int);
@@ -64,49 +66,37 @@ int _printf(const char *format, ...)
     return count;
 }
 
-void print_unsigned(unsigned int num)
+void print_unsigned(unsigned int u)
 {
-    if (num == 0)
-    {
-        putchar('0');
-        return;
-    }
-
-    if (num / 10)
-        print_unsigned(num / 10);
-
-    putchar((num % 10) + '0');
+    if (u / 10 != 0)
+        print_unsigned(u / 10);
+    putchar('0' + (u % 10));
 }
 
-void print_octal(unsigned int num)
+void print_octal(unsigned int o)
 {
-    if (num == 0)
-    {
-        putchar('0');
-        return;
-    }
-
-    if (num / 8)
-        print_octal(num / 8);
-
-    putchar((num % 8) + '0');
+    if (o / 8 != 0)
+        print_octal(o / 8);
+    putchar('0' + (o % 8));
 }
 
-void print_hex(unsigned int num, int uppercase)
+void print_hex(unsigned int x, int uppercase)
 {
-    char *hex_digits;
+    char c;
+    if (x / 16 != 0)
+        print_hex(x / 16, uppercase);
+    c = (x % 16) + (x % 16 < 10 ? '0' : (uppercase ? 'A' : 'a') - 10);
+    putchar(c);
+}
 
-    if (num == 0)
+int count_digits(unsigned int num)
+{
+    int count = 0;
+    while (num > 0)
     {
-        putchar('0');
-        return;
+        count++;
+        num /= 10;
     }
-
-    hex_digits = uppercase ? "0123456789ABCDEF" : "0123456789abcdef";
-
-    if (num / 16)
-        print_hex(num / 16, uppercase);
-
-    putchar(hex_digits[num % 16]);
+    return count;
 }
 

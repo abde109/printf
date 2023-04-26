@@ -11,6 +11,7 @@ int count_binary_digits(unsigned int num);
 void print_unsigned(unsigned int num);
 void print_octal(unsigned int num);
 void print_hex(unsigned int num, int uppercase);
+int count_digits(unsigned int num);
 
 #endif /* MAIN_H */
 
