@@ -1,18 +1,17 @@
-/* main.h */
 #ifndef MAIN_H
 #define MAIN_H
-#define BUFFER_SIZE 1024
 
 #include <stdarg.h>
-#include <unistd.h>
+#include <stdio.h>
 
 int _printf(const char *format, ...);
-void print_unsigned(unsigned int u, char *buffer, int *buffer_index);
-void print_octal(unsigned int o, char *buffer, int *buffer_index);
-void print_hex(unsigned int x, int uppercase, char *buffer, int *buffer_index);
+void print_number(int num);
+void print_binary(unsigned int num);
+int count_binary_digits(unsigned int num);
+void print_unsigned(unsigned int num);
+void print_octal(unsigned int num);
+void print_hex(unsigned int num, int uppercase);
 int count_digits(unsigned int num);
-void print_binary(unsigned int b, char *buffer, int *buffer_index);
-void flush_buffer(char *buffer, int *buffer_index);
 
 #endif /* MAIN_H */
 
