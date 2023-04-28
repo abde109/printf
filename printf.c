@@ -1,6 +1,7 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <string.h>
 #include "main.h"
 
 int print_char(va_list args);
@@ -19,6 +20,23 @@ typedef struct specifier {
     int (*f)(va_list);
 } specifier_t;
 
+int print_r(va_list args) {
+    char *s = va_arg(args, char *);
+    int count = 0;
+    int len;
+    int i;
+    if (!s) {
+        s = "(null)";
+    }
+    len = strlen(s);
+    for (i = len - 1; i >= 0; i--) {
+        write(1, &s[i], 1);
+        count++;
+    }
+    return count;
+}
+
+
 specifier_t specifiers[] = {
     {'c', print_char},
     {'s', print_string},
@@ -31,8 +49,10 @@ specifier_t specifiers[] = {
     {'b', print_binary},
     {'S', print_S},
     {'p', print_pointer},
+    {'r', print_r},
     {0, NULL}
 };
+
 
 int _printf(const char *format, ...) {
     va_list args;
